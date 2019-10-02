@@ -4,7 +4,10 @@ using System.Text;
 
 namespace TCPClassLibrary
 {
-    class RickyTcpClientServerClient
+    class RickyTcpClientServerClient : RickyTcpClient
     {
+        public RickyTcpClientServerClient(Delegate addMessageDelegate) : base(addMessageDelegate)
+        {
+        }
     }
 }

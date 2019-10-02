@@ -20,6 +20,10 @@ namespace ServerApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        protected delegate void UpdateServerDisplayDelegate(string message);
+
+        protected delegate void AddMessageServerDelegate(string message);
+
         public MainWindow()
         {
             InitializeComponent();

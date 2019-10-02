@@ -20,6 +20,10 @@ namespace ClientApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        protected delegate void UpdateClientDisplayDelegate(string message);
+
+        protected delegate void AddMessageClientDelegate(string message);
+
         public MainWindow()
         {
             InitializeComponent();
