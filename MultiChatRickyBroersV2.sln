@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiChatRickyBroersV2", "MultiChatRickyBroersV2\MultiChatRickyBroersV2.csproj", "{63919CAE-DEF4-42A1-B096-6A62BF064EBB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPClassLibrary", "TCPClassLibrary\TCPClassLibrary.csproj", "{4F474862-4F12-41DA-9E80-359C4AC410AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TCPClassLibrary", "TCPClassLibrary\TCPClassLibrary.csproj", "{4F474862-4F12-41DA-9E80-359C4AC410AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApp", "ClientApp\ClientApp.csproj", "{4D88B925-922F-4332-9C5F-E1C390F81E84}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerApp", "ServerApp\ServerApp.csproj", "{F45AB8D1-F89F-4352-A7B8-92019F764269}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralClassLibrary", "GeneralClassLibrary\GeneralClassLibrary.csproj", "{9C00FAAC-DA7F-4CB9-970D-54F3C5C9A280}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{63919CAE-DEF4-42A1-B096-6A62BF064EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63919CAE-DEF4-42A1-B096-6A62BF064EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63919CAE-DEF4-42A1-B096-6A62BF064EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63919CAE-DEF4-42A1-B096-6A62BF064EBB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4F474862-4F12-41DA-9E80-359C4AC410AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F474862-4F12-41DA-9E80-359C4AC410AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F474862-4F12-41DA-9E80-359C4AC410AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{F45AB8D1-F89F-4352-A7B8-92019F764269}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F45AB8D1-F89F-4352-A7B8-92019F764269}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F45AB8D1-F89F-4352-A7B8-92019F764269}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C00FAAC-DA7F-4CB9-970D-54F3C5C9A280}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C00FAAC-DA7F-4CB9-970D-54F3C5C9A280}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C00FAAC-DA7F-4CB9-970D-54F3C5C9A280}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C00FAAC-DA7F-4CB9-970D-54F3C5C9A280}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
