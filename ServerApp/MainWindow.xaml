@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MultiChatRickyBroers"
+        xmlns:local="clr-namespace:ServerApp"
         mc:Ignorable="d"
         Title="ServerWindow" Height="450" Width="800">
     <Grid>
@@ -29,7 +29,7 @@
 
         <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Content="Server" HorizontalAlignment="Left" FontSize="48"/>
 
-        <Button Grid.Row="7" Grid.Column="2" Grid.RowSpan="2" Content="Run server" Margin="10" Click="RunServer_Onclick"></Button>
+        <Button x:Name="RunServer_Button" Grid.Row="7" Grid.Column="2" Grid.RowSpan="2" Content="Run server" Margin="10" Click="RunServer_onClick"></Button>
 
         <Label x:Name="PortInput" Grid.Row="2" Grid.Column="1">Port</Label>
         <TextBox x:Name="Port_Input" Grid.Row="2" Grid.Column="1" Text="9000" VerticalAlignment="Top" Margin="0,22,0,0" />

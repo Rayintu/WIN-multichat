@@ -1,7 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Configurations>Debug;Release;ServerAndClientDebug</Configurations>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>D:\School\Jaar_3\NotS\WIN\opdrachten\MultiChatRickyBroersV2\ALL_BUILD_FILES_IN_HERE\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>D:\School\Jaar_3\NotS\WIN\opdrachten\MultiChatRickyBroersV2\ALL_BUILD_FILES_IN_HERE\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="GeneralClassLibrary">
+      <HintPath>..\ALL_BUILD_FILES_IN_HERE\netstandard2.0\GeneralClassLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>

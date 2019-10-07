@@ -1,9 +1,9 @@
-﻿<Window x:Class="ClientApp.MainWindow"
+﻿<Window x:Name="chatClient_window" x:Class="ClientApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MultiChatRickyBroers"
+        xmlns:local="clr-namespace:ClientApp"
         mc:Ignorable="d"
         Title="ChatWindow" Height="450" Width="800">
     <Grid>
@@ -41,8 +41,8 @@
         <TextBox x:Name="txtBox_Username" Grid.Row="5" Grid.Column="8" Margin="5" Text="anonymous" ></TextBox>
 
         <TextBox Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">Message:</TextBox>
-        <TextBox x:Name="txtMessage" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="4" Margin="5"></TextBox>
-        <Button Grid.Row="8" Grid.Column="5" Margin="5" Content="Send" Click="Send_onClick"></Button>
+        <TextBox x:Name="txtMessage_textBox" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="4" Margin="5"></TextBox>
+        <Button x:Name="buttonSend" Grid.Row="8" Grid.Column="5" Margin="5" Content="Send" Click="buttonSend_onClick"></Button>
 
         <TextBlock Grid.Row="1" Grid.Column="7" Margin="5">Ip address</TextBlock>
         <TextBox x:Name="textBox_ip" Grid.Row="2" Grid.Column="7" Margin="5" Text="127.0.0.1"></TextBox>

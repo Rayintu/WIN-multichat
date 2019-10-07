@@ -4,18 +4,8 @@ using System.Text;
 
 namespace TCPClassLibrary
 {
-    class RickyTcpClient
+    public class RickyTcpClient
     {
-        private Delegate addMessageDelegate;
-
-        public RickyTcpClient(Delegate addMessageDelegate)
-        {
-            this.addMessageDelegate = addMessageDelegate;
-        }
-
-        public void listenForMessages(Action<String> message)
-        {
-
-        }
+        
     }
 }
