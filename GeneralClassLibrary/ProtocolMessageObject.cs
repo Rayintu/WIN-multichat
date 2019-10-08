@@ -11,8 +11,6 @@ namespace GeneralClassLibrary
         public string username { get; }
         public string message { get; }
 
-
-
         public ProtocolMessageObject(MatchCollection matchCollection)
         {
             this.protocolType = matchCollection[0].ToString().Remove(0,1);

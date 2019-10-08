@@ -13,11 +13,14 @@ namespace TCPClassLibrary
     {
         private TcpClient tcpClient;
         private NetworkStream networkStream;
-        private string username;
+        public string username { get; set; }
 
         public RickyTcpClientChatClient(string username)
         {
+            
             this.username = username;
+            
+            
         }
 
         public async void ConnectToServer(string ipAddress, int port, Action<string> showMessageAction, Action<string> showErrorDialog)
@@ -27,6 +30,7 @@ namespace TCPClassLibrary
             {
                 tcpClient = new TcpClient(ipAddress, 9000);
                 await Task.Run(() => ConnectToServerAsync(showMessageAction));
+                showMessageAction("connected to server!");
                 SendMessage("CONNECT", " ", showMessageAction);
 
             }
@@ -40,6 +44,11 @@ namespace TCPClassLibrary
 
         private void ConnectToServerAsync(Action<string> showMessageAction)
         {
+            if (username.Length == 0)
+            {
+                username = GenerateUsername();
+            }
+
             networkStream = tcpClient.GetStream();
         }
 
@@ -49,7 +58,13 @@ namespace TCPClassLibrary
             string preparedMessage = Parser.PrepareProtocolMessageForTransfer(protocolMessage);
             byte[] messageToBeSent = Encoding.ASCII.GetBytes(preparedMessage);
             networkStream.Write(messageToBeSent, 0, messageToBeSent.Length);
-            showMessageAction(message);
+        }
+
+        private string GenerateUsername()
+        {
+            Random random = new Random();
+            int id = random.Next(1000, 9999);
+            return $"anon{id}";
         }
     }
 }

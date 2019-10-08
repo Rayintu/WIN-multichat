@@ -43,10 +43,13 @@ namespace GeneralClassLibrary
             switch (messageObject.protocolType)
             {
                 case ("CONNECT"):
-                    return $"{messageObject.username} Connected!";
+                    return $"[{messageObject.username}] Connected!";
+                    break;
+                case ("MESSAGE"):
+                    return $"[{messageObject.username}]: {messageObject.message}";
                     break;
                 default:
-                    return "Well, this is awkward";
+                    return $"Something went wrong with a message [{messageObject.username}] sent.";
                     break;
             }
 

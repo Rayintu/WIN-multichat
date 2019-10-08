@@ -38,7 +38,7 @@
         <ListBox x:Name="chat_list" Grid.Row="1" Grid.Column="1" Grid.RowSpan="6" Grid.ColumnSpan="5" Height="Auto" Width="Auto" Margin="5"></ListBox>
 
         <Label Grid.Row="4" Grid.Column="8">Username:</Label>
-        <TextBox x:Name="txtBox_Username" Grid.Row="5" Grid.Column="8" Margin="5" Text="anonymous" ></TextBox>
+        <TextBox x:Name="txtBox_Username" Grid.Row="5" Grid.Column="8" Margin="5" Text="anonymous" TextChanged="txtBox_onTextChange" ></TextBox>
 
         <TextBox Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">Message:</TextBox>
         <TextBox x:Name="txtMessage_textBox" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="4" Margin="5"></TextBox>

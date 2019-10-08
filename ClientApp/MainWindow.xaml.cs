@@ -28,21 +28,26 @@ namespace ClientApp
 
         protected delegate void AddMessageClientDelegate(string message);
 
-        private string username;
+        private string username = "anonymous";
 
         private RickyTcpClientChatClient tcpClientChat; 
 
         public MainWindow()
         {
-            InitializeComponent();
-            username = txtBox_Username.Text;
             tcpClientChat = new RickyTcpClientChatClient(username);
+            InitializeComponent();
+            
         }
         
         private void Connect_onClick(object sender, RoutedEventArgs e)
         {
+            txtBox_Username.IsEnabled = false;
+            textBox_ip.IsEnabled = false;
+            textBox_Port.IsEnabled = false;
+            
             AddMessage("connecting...");
             tcpClientChat.ConnectToServer(textBox_ip.Text, Parser.StringToInt(textBox_Port.Text), AddMessage, ShowErrorDialog);
+            txtBox_Username.Text = tcpClientChat.username;
         }
 
         private void ShowErrorDialog(string message)
@@ -82,8 +87,16 @@ namespace ClientApp
         private void buttonSend_onClick(object sender, RoutedEventArgs e)
         {
             tcpClientChat.SendMessage("MESSAGE", txtMessage_textBox.Text, AddMessage);
+            AddMessage($"[You]: {txtMessage_textBox.Text}");
             txtMessage_textBox.Clear();
             txtMessage_textBox.Focus();
         }
+
+        private void txtBox_onTextChange(object sender, TextChangedEventArgs e)
+        {
+            tcpClientChat.username = txtBox_Username.Text;
+        }
+
+        
     }
 }
