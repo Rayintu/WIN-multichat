@@ -54,7 +54,8 @@ namespace TCPClassLibrary
                 message = Encoding.ASCII.GetString(buffer, 0, readBytes);
                 string decodedMessage = Parser.DecodeProtocolMessage(message);
                 MatchCollection matchCollection = Parser.ProtocolToMatchesArray(decodedMessage);
-                string messageToShow = Parser.FormatMessage(matchCollection);
+                ProtocolMessageObject protocolMessageObject = new ProtocolMessageObject(matchCollection);
+                string messageToShow = Parser.FormatMessage(protocolMessageObject);
                 showMessageAction(messageToShow);
             }
 

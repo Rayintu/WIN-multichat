@@ -26,7 +26,7 @@ namespace GeneralClassLibrary
         {
             string newMessage;
             newMessage = encodedProtocolMessage.Replace("&#64;", "@");
-            newMessage = encodedProtocolMessage.Replace("&#96;", "`");
+            newMessage = newMessage.Replace("&#96;", "`");
 
             return newMessage;
         }
@@ -37,16 +37,13 @@ namespace GeneralClassLibrary
             return regex.Matches(message);
         }
 
-        public static string FormatMessage(MatchCollection matches)
+        public static string FormatMessage(ProtocolMessageObject messageObject)
         {
-            string type = matches[0].ToString();
-            string username = matches[1].ToString();
-            string message = matches[2].ToString();
-
-            switch (type)
+            
+            switch (messageObject.protocolType)
             {
                 case ("CONNECT"):
-                    return $"{username} Connected!";
+                    return $"{messageObject.username} Connected!";
                     break;
                 default:
                     return "Well, this is awkward";
