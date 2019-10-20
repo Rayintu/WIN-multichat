@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using GeneralClassLibrary;
 
@@ -12,31 +14,33 @@ namespace TCPClassLibrary
     public class RickyTcpClientChatClient : RickyTcpClient
     {
         private TcpClient tcpClient;
-        private NetworkStream networkStream;
+        public NetworkStream networkStream { get; set; }
         public string username { get; set; }
+        private int bufferSize = 1024;
 
         public RickyTcpClientChatClient(string username)
         {
-            
             this.username = username;
-            
-            
         }
 
-        public async void ConnectToServer(string ipAddress, int port, Action<string> showMessageAction, Action<string> showErrorDialog)
+        public async void ConnectToServer(string ipAddress, int port, int bufferSize, Action<string> showMessageAction, Action<string> showErrorDialogAction)
         {
-            
+            this.bufferSize = bufferSize;
             try
             {
+                if (username.Length == 0)
+                {
+                    username = GenerateUsername();
+                }
                 tcpClient = new TcpClient(ipAddress, 9000);
                 await Task.Run(() => ConnectToServerAsync(showMessageAction));
                 showMessageAction("connected to server!");
-                SendMessage("CONNECT", " ", showMessageAction);
-
+                SendMessage("CONNECT", username, "", bufferSize, networkStream, showMessageAction);
+                Task.Run(() => ListenForMessages(showMessageAction, showErrorDialogAction));
             }
             catch (SocketException socketException)
             {
-                showErrorDialog(socketException.Message);
+                showErrorDialogAction(socketException.Message);
                 Debug.WriteLine(socketException.Message);
             }
             
@@ -44,20 +48,36 @@ namespace TCPClassLibrary
 
         private void ConnectToServerAsync(Action<string> showMessageAction)
         {
-            if (username.Length == 0)
-            {
-                username = GenerateUsername();
-            }
-
             networkStream = tcpClient.GetStream();
         }
 
-        public void SendMessage(string type, string message, Action<string> showMessageAction)
+        private void ListenForMessages(Action<string> showMessageAction, Action<string> showErrorDialogAction)
         {
-            string protocolMessage = Parser.CreateProtocolMessage(type, username, message);
-            string preparedMessage = Parser.PrepareProtocolMessageForTransfer(protocolMessage);
-            byte[] messageToBeSent = Encoding.ASCII.GetBytes(preparedMessage);
-            networkStream.Write(messageToBeSent, 0, messageToBeSent.Length);
+            string message = " ";
+            byte[] buffer = new byte[bufferSize];
+
+            while (networkStream.CanRead)
+            {
+                try
+                {
+                    int readBytes = networkStream.Read(buffer, 0, bufferSize);
+                    message = Encoding.ASCII.GetString(buffer, 0, readBytes);
+                    string decodedMessage = Parser.DecodeProtocolMessage(message);
+                    MatchCollection matchCollection = Parser.ProtocolToMatchesArray(decodedMessage);
+                    ProtocolMessageObject protocolMessageObject = new ProtocolMessageObject(matchCollection);
+                    string messageToShow = Parser.FormatMessage(protocolMessageObject);
+                    showMessageAction(messageToShow);
+                }
+                catch (IOException ioException)
+                {
+                    showMessageAction("Disconnected");
+                    showErrorDialogAction("Connection to the server lost!");
+                    networkStream.Close();
+                }
+                
+            }
+
+            networkStream.Close();
         }
 
         private string GenerateUsername()

@@ -38,7 +38,7 @@
         <ListBox x:Name="chat_list" Grid.Row="1" Grid.Column="1" Grid.RowSpan="6" Grid.ColumnSpan="5" Height="Auto" Width="Auto" Margin="5"></ListBox>
 
         <Label Grid.Row="4" Grid.Column="8">Username:</Label>
-        <TextBox x:Name="txtBox_Username" Grid.Row="5" Grid.Column="8" Margin="5" Text="anonymous" TextChanged="txtBox_onTextChange" ></TextBox>
+        <TextBox x:Name="txtBox_Username" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}" Grid.Row="5" Grid.Column="8" Margin="5" TextChanged="txtBox_onTextChange" ></TextBox>
 
         <TextBox Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">Message:</TextBox>
         <TextBox x:Name="txtMessage_textBox" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="4" Margin="5"></TextBox>
@@ -49,7 +49,7 @@
 
         <TextBlock Grid.Row="1" Grid.Column="8" Margin="5">Port</TextBlock>
         <TextBox x:Name="textBox_Port" Grid.Row="2" Grid.Column="8" Margin="5" Text="9000"></TextBox>
-        <Button Grid.Row="8" Grid.ColumnSpan="2" Grid.Column="7" Content="Connect" Margin="5" Click="Connect_onClick"></Button>
+        <Button x:Name="btnConnect" Grid.Row="8" Grid.ColumnSpan="2" Grid.Column="7" Content="Connect" Margin="5" Click="Connect_onClick"></Button>
 
         <TextBlock Grid.Row="4" Grid.Column="7" Margin="5">BufferSize</TextBlock>
         <TextBox x:Name="txtBox_bufferSize" Grid.Row="5" Grid.Column="7" Margin="5" Text="1024"></TextBox>

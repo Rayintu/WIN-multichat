@@ -28,7 +28,7 @@ namespace ClientApp
 
         protected delegate void AddMessageClientDelegate(string message);
 
-        private string username = "anonymous";
+        private string username = "";
 
         private RickyTcpClientChatClient tcpClientChat; 
 
@@ -46,8 +46,9 @@ namespace ClientApp
             textBox_Port.IsEnabled = false;
             
             AddMessage("connecting...");
-            tcpClientChat.ConnectToServer(textBox_ip.Text, Parser.StringToInt(textBox_Port.Text), AddMessage, ShowErrorDialog);
+            tcpClientChat.ConnectToServer(textBox_ip.Text, Parser.StringToInt(textBox_Port.Text), Parser.StringToInt(txtBox_bufferSize.Text), AddMessage, ShowErrorDialog);
             txtBox_Username.Text = tcpClientChat.username;
+            btnConnect.Content = "Disconnect";
         }
 
         private void ShowErrorDialog(string message)
@@ -86,7 +87,7 @@ namespace ClientApp
 
         private void buttonSend_onClick(object sender, RoutedEventArgs e)
         {
-            tcpClientChat.SendMessage("MESSAGE", txtMessage_textBox.Text, AddMessage);
+            tcpClientChat.SendMessage("MESSAGE", tcpClientChat.username, txtMessage_textBox.Text, Parser.StringToInt(txtBox_bufferSize.Text), tcpClientChat.networkStream, AddMessage);
             AddMessage($"[You]: {txtMessage_textBox.Text}");
             txtMessage_textBox.Clear();
             txtMessage_textBox.Focus();

@@ -24,15 +24,35 @@ namespace ServerApp
     public partial class MainWindow : Window
     {
         protected delegate void UpdateServerDisplayDelegate(string message);
-        
-        
+
+        protected delegate void ErrorWindowDisplayDelegate(string message);
+
         private RickyTcpClientServerClient rickyTcpClient = new RickyTcpClientServerClient();
+
+        private bool serverNotRunning = true;
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        private void ShowErrorDialog(string message)
+        {
+            if (serverApp_window.Dispatcher.CheckAccess())
+            {
+                ShowClientErrorDialog(message);
+            }
+            else
+            {
+                serverApp_window.Dispatcher.Invoke(new ErrorWindowDisplayDelegate(ShowClientErrorDialog), new object[] { message });
+            }
+        }
+
+        private void ShowClientErrorDialog(string message)
+        {
+            RunServer_Button.Content = "Start server";
+            MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
 
         private void AddMessage(string message)
         {
@@ -52,13 +72,22 @@ namespace ServerApp
             messages_list.Items.Add(message);
         }
 
-        private void RunServer_onClick(object sender, RoutedEventArgs e)
+        private void StartStopServer_onClick(object sender, RoutedEventArgs e)
         {
-            int port = Parser.StringToInt(Port_Input.Text);
-            int bufferSize = Parser.StringToInt(BufferSize_Input.Text);
+            if (serverNotRunning)
+            {
+                int port = Parser.StringToInt(Port_Input.Text);
+                int bufferSize = Parser.StringToInt(BufferSize_Input.Text);
+
+                RunServer_Button.Content = "Stop server";
+                serverNotRunning = false;
+                rickyTcpClient.StartTcpServer(port, bufferSize, AddMessage, ShowErrorDialog);
+            }
+            else
+            {
+
+            }
             
-            RunServer_Button.Content = "Stop server";
-            rickyTcpClient.StartTcpServer(port, bufferSize, AddMessage);
         }
     }
 }

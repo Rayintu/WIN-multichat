@@ -9,7 +9,7 @@ namespace GeneralClassLibrary
     {
         public static string CreateProtocolMessage(string type, string username, string message)
         {
-            return ($"@{type}` @{username}` @{message}`");
+            return ($"@{type}` @{username}` @{message}`»");
         }
 
         public static string PrepareProtocolMessageForTransfer(string protocolMessage)
@@ -18,6 +18,7 @@ namespace GeneralClassLibrary
 
             newMessage = protocolMessage.Replace("@", "&#64;");
             newMessage = newMessage.Replace("`", "&#96;");
+            newMessage = newMessage.Replace("»", "&#187");
 
             return newMessage;
         }
@@ -27,6 +28,7 @@ namespace GeneralClassLibrary
             string newMessage;
             newMessage = encodedProtocolMessage.Replace("&#64;", "@");
             newMessage = newMessage.Replace("&#96;", "`");
+            newMessage = newMessage.Replace("&#187", "»");
 
             return newMessage;
         }

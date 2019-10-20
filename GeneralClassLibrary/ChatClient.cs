@@ -7,11 +7,12 @@ namespace GeneralClassLibrary
 {
     public class ChatClient
     {
-        private NetworkStream networkStream { get; }
-        private string username { get; }
+        public NetworkStream networkStream { get; }
+        public string username { get; }
 
         public ChatClient(NetworkStream networkStream, string username)
         {
+            this.networkStream = networkStream;
             this.username = username;
         }
     }
