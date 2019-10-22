@@ -36,9 +36,21 @@ namespace TCPClassLibrary
             int nrOfChunks = (int)Math.Ceiling((decimal) preparedMessage.Length / bufferSize);
             for (int index = 0; index < nrOfChunks; index++)
             {
-                string substringToSend = preparedMessage.Substring(index * bufferSize, bufferSize);
-                byte[] chunkToSend = Encoding.ASCII.GetBytes(substringToSend);
-                networkStream.Write(chunkToSend, 0, bufferSize);
+                string substringToSend;
+                byte[] chunkToSend;
+                if (index == (nrOfChunks - 1))
+                {
+                    substringToSend = preparedMessage.Substring(index * bufferSize);
+                    chunkToSend = Encoding.ASCII.GetBytes(substringToSend);
+                    networkStream.Write(chunkToSend, 0, chunkToSend.Length);
+                }
+                else
+                {
+                    substringToSend = preparedMessage.Substring(index * bufferSize, bufferSize);
+                    chunkToSend = Encoding.ASCII.GetBytes(substringToSend);
+                    networkStream.Write(chunkToSend, 0, bufferSize);
+                }
+                
             }
         }
     }

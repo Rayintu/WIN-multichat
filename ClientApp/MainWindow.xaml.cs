@@ -41,14 +41,20 @@ namespace ClientApp
         
         private void Connect_onClick(object sender, RoutedEventArgs e)
         {
-            txtBox_Username.IsEnabled = false;
-            textBox_ip.IsEnabled = false;
-            textBox_Port.IsEnabled = false;
-            
-            AddMessage("connecting...");
-            tcpClientChat.ConnectToServer(textBox_ip.Text, Parser.StringToInt(textBox_Port.Text), Parser.StringToInt(txtBox_bufferSize.Text), AddMessage, ShowErrorDialog);
-            txtBox_Username.Text = tcpClientChat.username;
-            btnConnect.Content = "Disconnect";
+            if (Validator.ValidateIP(textBox_ip.Text))
+            {
+                txtBox_Username.IsEnabled = false;
+                textBox_ip.IsEnabled = false;
+                textBox_Port.IsEnabled = false;
+                AddMessage("connecting...");
+                tcpClientChat.ConnectToServer(textBox_ip.Text, Parser.StringToInt(textBox_Port.Text), Parser.StringToInt(txtBox_bufferSize.Text), AddMessage, ShowErrorDialog);
+                txtBox_Username.Text = tcpClientChat.username;
+                btnConnect.Content = "Disconnect";
+            }
+            else
+            {
+                ShowErrorDialog("Invalid IP address!");
+            }
         }
 
         private void ShowErrorDialog(string message)

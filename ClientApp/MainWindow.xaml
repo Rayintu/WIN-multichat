@@ -53,7 +53,7 @@
 
         <TextBlock Grid.Row="4" Grid.Column="7" Margin="5">BufferSize</TextBlock>
         <TextBox x:Name="txtBox_bufferSize" Grid.Row="5" Grid.Column="7" Margin="5" Text="1024"></TextBox>
-        <Button Grid.Row="6" Grid.Column="7" Margin="5" Content="Change"></Button>
+
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="6"/>
 
     </Grid>

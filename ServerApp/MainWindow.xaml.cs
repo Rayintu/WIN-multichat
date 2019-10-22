@@ -80,6 +80,7 @@ namespace ServerApp
                 int bufferSize = Parser.StringToInt(BufferSize_Input.Text);
 
                 RunServer_Button.Content = "Stop server";
+                Port_Input.IsEnabled = false;
                 serverNotRunning = false;
                 rickyTcpClient.StartTcpServer(port, bufferSize, AddMessage, ShowErrorDialog);
             }

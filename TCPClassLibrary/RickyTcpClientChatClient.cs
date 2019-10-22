@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -23,7 +24,8 @@ namespace TCPClassLibrary
             this.username = username;
         }
 
-        public async void ConnectToServer(string ipAddress, int port, int bufferSize, Action<string> showMessageAction, Action<string> showErrorDialogAction)
+        public async void ConnectToServer(string ipAddress, int port, int bufferSize, Action<string> showMessageAction,
+            Action<string> showErrorDialogAction)
         {
             this.bufferSize = bufferSize;
             try
@@ -32,6 +34,8 @@ namespace TCPClassLibrary
                 {
                     username = GenerateUsername();
                 }
+
+
                 tcpClient = new TcpClient(ipAddress, 9000);
                 await Task.Run(() => ConnectToServerAsync(showMessageAction));
                 showMessageAction("connected to server!");
@@ -43,7 +47,6 @@ namespace TCPClassLibrary
                 showErrorDialogAction(socketException.Message);
                 Debug.WriteLine(socketException.Message);
             }
-            
         }
 
         private void ConnectToServerAsync(Action<string> showMessageAction)
@@ -53,20 +56,27 @@ namespace TCPClassLibrary
 
         private void ListenForMessages(Action<string> showMessageAction, Action<string> showErrorDialogAction)
         {
-            string message = " ";
+            string message = "";
+            string decodedMessage = "";
             byte[] buffer = new byte[bufferSize];
 
             while (networkStream.CanRead)
             {
                 try
                 {
-                    int readBytes = networkStream.Read(buffer, 0, bufferSize);
-                    message = Encoding.ASCII.GetString(buffer, 0, readBytes);
-                    string decodedMessage = Parser.DecodeProtocolMessage(message);
+                    while (!decodedMessage.EndsWith("»"))
+                    {
+                        int readBytes = networkStream.Read(buffer, 0, bufferSize);
+                        message += Encoding.ASCII.GetString(buffer, 0, readBytes);
+                        decodedMessage = Parser.DecodeProtocolMessage(message);
+                    }
+
                     MatchCollection matchCollection = Parser.ProtocolToMatchesArray(decodedMessage);
                     ProtocolMessageObject protocolMessageObject = new ProtocolMessageObject(matchCollection);
                     string messageToShow = Parser.FormatMessage(protocolMessageObject);
                     showMessageAction(messageToShow);
+                    message = "";
+                    decodedMessage = "";
                 }
                 catch (IOException ioException)
                 {
@@ -74,7 +84,6 @@ namespace TCPClassLibrary
                     showErrorDialogAction("Connection to the server lost!");
                     networkStream.Close();
                 }
-                
             }
 
             networkStream.Close();
